@@ -1,12 +1,14 @@
-package com.academy.fundamentals.ex3;
+package com.academy.fundamentals.ex3.list;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.academy.fundamentals.ex3.R;
+import com.academy.fundamentals.ex3.model.MovieModel;
 
 import java.util.ArrayList;
 

@@ -1,42 +1,27 @@
-package com.academy.fundamentals.ex3;
+package com.academy.fundamentals.ex3.model;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.widget.Toast;
+
+import com.academy.fundamentals.ex3.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class MoviesActivity extends AppCompatActivity implements OnMovieClickListener {
+public class MoviesContent {
+    public static final ArrayList<MovieModel> MOVIES = new ArrayList<>();
 
-    private ArrayList<MovieModel> movies = null;
-    private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_movies);
-
-        this.loadMovies();
-
-        this.initRecyclerView();
+    public static void clear() {
+        MOVIES.clear();
     }
 
-    private void initRecyclerView() {
-        this.mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        this.mLayoutManager = new LinearLayoutManager(this);
-        this.mRecyclerView.setLayoutManager(this.mLayoutManager);
-        this.mAdapter = new MoviesViewAdapter(this, this.movies, this);
-        this.mRecyclerView.setAdapter(this.mAdapter);
+    public static int size() {
+        return MOVIES.size();
     }
 
+    public static void addMovie(MovieModel movie) {
+        MOVIES.add(movie);
+    }
 
-    private void loadMovies() {
-        this.movies = new ArrayList<>(9);
+    public static void loadMovies() {
+        MoviesContent.clear();
 
         MovieModel movie1 = new MovieModel();
         MovieModel movie2 = new MovieModel();
@@ -58,6 +43,26 @@ public class MoviesActivity extends AppCompatActivity implements OnMovieClickLis
         movie8.setName("Thor - Ragnarok");
         movie9.setName("Guardians of the Galaxy");
 
+        movie1.setTrailerUrl("https://www.youtube.com/watch?v=vn9mMeWcgoM)");
+        movie2.setTrailerUrl("https://www.youtube.com/watch?v=bsLk0NPRFAc");
+        movie3.setTrailerUrl("https://www.youtube.com/watch?v=UL29y0ah92w");
+        movie4.setTrailerUrl("https://www.youtube.com/watch?v=20bpjtCbCz0");
+        movie5.setTrailerUrl("https://www.youtube.com/watch?v=xjDjIWPwcPU");
+        movie6.setTrailerUrl("https://www.youtube.com/watch?v=n5LoVcVsiSQ");
+        movie7.setTrailerUrl("https://www.youtube.com/watch?v=zSWdZVtXT7E");
+        movie8.setTrailerUrl("https://www.youtube.com/watch?v=ue80QwXMRHg");
+        movie9.setTrailerUrl("https://www.youtube.com/watch?v=2LIQ2-PZBC8");
+
+        movie1.setReleaseDate("2018-06-06");
+        movie2.setReleaseDate("2018-08-09");
+        movie3.setReleaseDate("2018-07-04");
+        movie4.setReleaseDate("2018-05-15");
+        movie5.setReleaseDate("2018-02-13");
+        movie6.setReleaseDate("2018-06-07");
+        movie7.setReleaseDate("2014-11-05");
+        movie8.setReleaseDate("2017-10-25");
+        movie9.setReleaseDate("2014-07-30");
+
         movie1.setImageResourceId(R.drawable.jurassic_world_fallen_kingdom);
         movie2.setImageResourceId(R.drawable.the_meg);
         movie3.setImageResourceId(R.drawable.the_first_purge);
@@ -67,6 +72,16 @@ public class MoviesActivity extends AppCompatActivity implements OnMovieClickLis
         movie7.setImageResourceId(R.drawable.interstellar);
         movie8.setImageResourceId(R.drawable.thor_ragnarok);
         movie9.setImageResourceId(R.drawable.guardians_of_the_galaxy);
+
+        movie1.setBackImageResourceId(R.drawable.jurassic_world_back);
+        movie2.setBackImageResourceId(R.drawable.the_meg_back);
+        movie3.setBackImageResourceId(R.drawable.the_first_purge_back);
+        movie4.setBackImageResourceId(R.drawable.deadpool_2_back);
+        movie5.setBackImageResourceId(R.drawable.black_panther_back);
+        movie6.setBackImageResourceId(R.drawable.ocean_eight_back);
+        movie7.setBackImageResourceId(R.drawable.interstellar_back);
+        movie8.setBackImageResourceId(R.drawable.thor_ragnarok_back);
+        movie9.setBackImageResourceId(R.drawable.guardians_of_the_galaxy_back);
 
         movie1.setOverview("Three years after the demise of Jurassic World, a volcanic eruption threatens the remaining dinosaurs on the isla Nublar, so Claire Dearing, the former park manager, recruits Owen Grady to help prevent the extinction of the dinosaurs once again");
         movie2.setOverview("A deep sea submersible pilot revisits his past fears in the Mariana Trench, and accidentally unleashes the seventy foot ancestor of the Great White Shark believed to be extinct");
@@ -78,22 +93,15 @@ public class MoviesActivity extends AppCompatActivity implements OnMovieClickLis
         movie8.setOverview("Thor is on the other side of the universe and finds himself in a race against time to get back to Asgard to stop Ragnarok, the prophecy of destruction to his homeworld and the end of Asgardian civilization, at the hands of an all-powerful new threat, the ruthless Hela");
         movie9.setOverview("Light years from Earth, 26 years after being abducted, Peter Quill finds himself the prime target of a manhunt after discovering an orb wanted by Ronan the Accuser");
 
-        this.movies.add(movie1);
-        this.movies.add(movie2);
-        this.movies.add(movie3);
-        this.movies.add(movie4);
-        this.movies.add(movie5);
-        this.movies.add(movie6);
-        this.movies.add(movie7);
-        this.movies.add(movie8);
-        this.movies.add(movie9);
+        MoviesContent.addMovie(movie1);
+        MoviesContent.addMovie(movie2);
+        MoviesContent.addMovie(movie3);
+        MoviesContent.addMovie(movie4);
+        MoviesContent.addMovie(movie5);
+        MoviesContent.addMovie(movie6);
+        MoviesContent.addMovie(movie7);
+        MoviesContent.addMovie(movie8);
+        MoviesContent.addMovie(movie9);
     }
 
-    @Override
-    public void onMovieClicked(int itemPosition) {
-        MovieModel movieModel = this.movies.get(itemPosition);
-
-        Toast.makeText(this, movieModel.getName(), Toast.LENGTH_SHORT).show();
-
-    }
 }

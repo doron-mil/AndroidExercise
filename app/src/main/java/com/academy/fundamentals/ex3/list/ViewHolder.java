@@ -1,4 +1,4 @@
-package com.academy.fundamentals.ex3;
+package com.academy.fundamentals.ex3.list;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -6,6 +6,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.academy.fundamentals.ex3.R;
+import com.academy.fundamentals.ex3.model.MovieModel;
 
 public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 

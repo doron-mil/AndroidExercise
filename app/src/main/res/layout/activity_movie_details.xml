@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".list.MoviesActivity">
+    tools:context=".details.MovieDetails">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/detailsViewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
 </android.support.constraint.ConstraintLayout>
