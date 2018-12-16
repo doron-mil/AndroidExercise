@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/action_open_async_task"
+        android:title="Open Async Task Activity"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_open_thread_handler"
+        android:title="Open thread handlerk Activity"
+        app:showAsAction="never" />
+</menu>

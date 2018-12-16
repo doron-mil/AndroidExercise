@@ -1,14 +1,19 @@
 package com.academy.fundamentals.ex3.list;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.academy.fundamentals.ex3.R;
 import com.academy.fundamentals.ex3.details.MovieDetails;
 import com.academy.fundamentals.ex3.model.MoviesContent;
+import com.academy.fundamentals.ex3.threads.AsyncTaskActivity;
+import com.academy.fundamentals.ex3.threads.ThreadsActivity;
 
 
 public class MoviesActivity extends AppCompatActivity implements OnMovieClickListener {
@@ -25,6 +30,32 @@ public class MoviesActivity extends AppCompatActivity implements OnMovieClickLis
         this.loadMovies();
 
         this.initRecyclerView();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.movies_activity_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_open_async_task:
+                // Open Async Task Activity
+                startActivity(new Intent(MoviesActivity.this, AsyncTaskActivity.class));
+                return true;
+
+            case R.id.action_open_thread_handler:
+                // Open Thread Handler Activity
+                startActivity(new Intent(MoviesActivity.this, ThreadsActivity.class));
+                return true;
+
+            default:
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private void initRecyclerView() {
