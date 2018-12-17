@@ -10,4 +10,8 @@
         android:id="@+id/action_open_thread_handler"
         android:title="Open thread handlerk Activity"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_open_background_services"
+        android:title="Open Background Service Activity"
+        app:showAsAction="never" />
 </menu>
