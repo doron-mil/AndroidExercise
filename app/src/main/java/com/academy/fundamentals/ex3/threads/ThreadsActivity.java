@@ -43,7 +43,7 @@ public class ThreadsActivity extends AppCompatActivity implements IAsyncTaskEven
             Toast.makeText(this, R.string.msg_should_create_task, Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, getString(R.string.msg_thread_onstart), Toast.LENGTH_SHORT).show();
-            mSimpleAsyncTask.execute();
+            mSimpleAsyncTask.start();
         }
     }
 

@@ -4,7 +4,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.SystemClock;
 
-public class MySimpleAsyncTask {
+public class MySimpleAsyncTask extends Thread{
 
     private IAsyncTaskEvents mIAsyncTaskEvents;
     private volatile boolean mCancelled = false;
@@ -14,26 +14,53 @@ public class MySimpleAsyncTask {
     }
 
     void execute() {
-        Looper mainLooper = Looper.getMainLooper();
-        Handler handler = new Handler(mainLooper);
+        onPreExecute();
 
-        MyRunnable myRunnable = new MyRunnable();
-        handler.post(myRunnable);
+        doInBackground();
+
+        onPostExecute();
+
+        // Looper mainLooper = Looper.getMainLooper();
+        // Handler handler = new Handler(mainLooper);
+        //
+        // MyRunnable myRunnable = new MyRunnable();
+        // handler.post(myRunnable);
 
 
     }
 
     void onPreExecute() {
-        mIAsyncTaskEvents.onPreExecute();
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                mIAsyncTaskEvents.onPreExecute();
+            }
+        };
+        runOnUiThread(runnable);
+
+
 
     }
 
     void onPostExecute() {
-        mIAsyncTaskEvents.onPostExecute();
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                mIAsyncTaskEvents.onPostExecute();
+            }
+        };
+        runOnUiThread(runnable);
     }
 
-    void onProgressUpdate(Integer progress) {
-        mIAsyncTaskEvents.onProgressUpdate(progress);
+    void onProgressUpdate(final Integer progress) {
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                mIAsyncTaskEvents.onProgressUpdate(progress);
+            }
+        };
+        runOnUiThread(runnable);
+
     }
 
 
@@ -47,8 +74,9 @@ public class MySimpleAsyncTask {
             if (isCancelled()) {
                 return;
             }
-            
+
             onProgressUpdate(i);
+
             SystemClock.sleep(500);
         }
     }
@@ -57,6 +85,9 @@ public class MySimpleAsyncTask {
         this.mCancelled = true;
     }
 
+    private void runOnUiThread(Runnable runnable) {
+        new Handler(Looper.getMainLooper()).post(runnable);
+    }
 
     public class MyRunnable implements Runnable {
 
@@ -65,6 +96,7 @@ public class MySimpleAsyncTask {
             onPreExecute();
 
             doInBackground();
+
 
             onPostExecute();
         }

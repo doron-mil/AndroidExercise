@@ -3,6 +3,7 @@ package com.academy.fundamentals.ex3.threads;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.academy.fundamentals.ex3.R;
@@ -60,6 +61,8 @@ public class AsyncTaskActivity extends AppCompatActivity implements IAsyncTaskEv
     public void onPreExecute() {
         Toast.makeText(this, getString(R.string.msg_preexecute), Toast.LENGTH_SHORT).show();
         mThreadsFragment.updateFragmentText("");
+        Log.d("*****", "onPreExecute");
+
     }
 
     @Override
@@ -67,12 +70,13 @@ public class AsyncTaskActivity extends AppCompatActivity implements IAsyncTaskEv
         Toast.makeText(this, getString(R.string.msg_postexecute), Toast.LENGTH_SHORT).show();
         mThreadsFragment.updateFragmentText(getString(R.string.done));
         mAsyncTask = null;
-
+        Log.d("*****", "onPostExecute Done!");
     }
 
     @Override
     public void onProgressUpdate(Integer integer) {
         mThreadsFragment.updateFragmentText(String.valueOf(integer));
+        Log.d("*****", "onProgressUpdate: " + integer);
 
     }
 

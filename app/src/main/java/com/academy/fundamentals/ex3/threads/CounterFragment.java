@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,7 @@ public class CounterFragment extends Fragment implements View.OnClickListener{
     private Button mBtnStart;
     private Button mBtnCancel;
     private TextView mTxtValue;
+    private TextView mTxtValue2;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -78,10 +80,11 @@ public class CounterFragment extends Fragment implements View.OnClickListener{
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_counter, container, false);
 
-        this.mBtnCreate = rootView.findViewById(R.id.button_Create);
+        mBtnCreate = rootView.findViewById(R.id.button_Create);
         this.mBtnStart = rootView.findViewById(R.id.button_Start);
         this.mBtnCancel = rootView.findViewById(R.id.button_Cancel);
-        this.mTxtValue = rootView.findViewById(R.id.counter_status);
+        mTxtValue = rootView.findViewById(R.id.counter_status);
+        mTxtValue2 = rootView.findViewById(R.id.counter_replacement);
 
         this.mBtnCreate.setOnClickListener(this);
         this.mBtnStart.setOnClickListener(this);
@@ -154,9 +157,11 @@ public class CounterFragment extends Fragment implements View.OnClickListener{
     }
 
     public void updateFragmentText( String aCounterStatusText ){
-        if (this.mTxtValue != null){
-            this.mTxtValue.setText(aCounterStatusText);
+        if (mTxtValue != null){
+            mTxtValue.setText(aCounterStatusText);
+            mTxtValue2.setText(aCounterStatusText);
         }
+        Log.d("*****", "updateFragmentText: " + aCounterStatusText);
 
     }
 }
