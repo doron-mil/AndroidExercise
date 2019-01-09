@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -12,9 +13,19 @@ import android.view.MenuItem;
 import com.academy.fundamentals.ex3.BackgroundServices.BGServiceActivity;
 import com.academy.fundamentals.ex3.R;
 import com.academy.fundamentals.ex3.details.MovieDetails;
+import com.academy.fundamentals.ex3.model.MovieListResult;
+import com.academy.fundamentals.ex3.model.MovieModel;
+import com.academy.fundamentals.ex3.model.MovieModelConverter;
 import com.academy.fundamentals.ex3.model.MoviesContent;
+import com.academy.fundamentals.ex3.rest.RestClientManager;
 import com.academy.fundamentals.ex3.threads.AsyncTaskActivity;
 import com.academy.fundamentals.ex3.threads.ThreadsActivity;
+
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class MoviesActivity extends AppCompatActivity implements OnMovieClickListener {
@@ -68,13 +79,34 @@ public class MoviesActivity extends AppCompatActivity implements OnMovieClickLis
         this.mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         this.mLayoutManager = new LinearLayoutManager(this);
         this.mRecyclerView.setLayoutManager(this.mLayoutManager);
-        this.mAdapter = new MoviesViewAdapter(this, MoviesContent.MOVIES, this);
-        this.mRecyclerView.setAdapter(this.mAdapter);
     }
 
 
     private void loadMovies() {
-        MoviesContent.loadMovies();
+        // MoviesContent.loadMovies();
+
+        // New API Service call
+        Call<MovieListResult> call = RestClientManager.moviesService.getPopularMovies();
+        call.enqueue(new Callback<MovieListResult>() {
+            @Override
+            public void onResponse(Call<MovieListResult> call, Response<MovieListResult> response) {
+                if (response.isSuccessful()) {
+                    ArrayList<MovieModel> movieModelArrayList = MovieModelConverter.convertResult(response.body());
+                    MoviesContent.loadMovies(movieModelArrayList);
+                    Log.v("doron", response.body().getResults().size() + "");
+                    mAdapter = new MoviesViewAdapter(MoviesActivity.this,
+                            MoviesContent.MOVIES, MoviesActivity.this);
+                    Log.v("doron - x", MoviesContent.MOVIES.size() + "");
+                    mRecyclerView.setAdapter(mAdapter);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MovieListResult> call, Throwable t) {
+            }
+
+        });
+
     }
 
     @Override

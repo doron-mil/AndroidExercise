@@ -104,4 +104,8 @@ public class MoviesContent {
         MoviesContent.addMovie(movie9);
     }
 
+    public static void loadMovies(ArrayList<MovieModel> movieModelArrayList) {
+        MoviesContent.clear();
+        MOVIES.addAll(movieModelArrayList);
+    }
 }
