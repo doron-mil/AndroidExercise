@@ -40,4 +40,9 @@
     <string name="start_intent_service">Start IntentService</string>
     <string name="the_progress">The progress</string>
 
+    <string name="something_went_wrong_text">Something went wrong :-/</string>
+
+    <string name="details_loading_trailer_text">Loading…</string>
+
+
 </resources>

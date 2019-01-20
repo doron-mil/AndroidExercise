@@ -11,19 +11,27 @@ import com.academy.fundamentals.ex3.R;
 import com.academy.fundamentals.ex3.model.MovieModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MoviesViewAdapter extends RecyclerView.Adapter<ViewHolder> {
 
     private LayoutInflater mInflater;
-    private ArrayList<MovieModel> mDataSource;
+    private ArrayList<MovieModel> mDataSource = new ArrayList<MovieModel>();
     OnMovieClickListener mMovieClickListener;
 
     public MoviesViewAdapter(Context context, ArrayList<MovieModel> items,
                              OnMovieClickListener onMovieClickListener) {
-        mDataSource = items;
+        mDataSource.addAll(items);
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.mMovieClickListener = onMovieClickListener;
     }
+
+    public void setData(List<MovieModel> items) {
+        mDataSource.clear();
+        mDataSource.addAll(items);
+        notifyDataSetChanged();
+    }
+
 
     @NonNull
     @Override

@@ -1,9 +1,12 @@
 package com.academy.fundamentals.ex3.model;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.DrawableRes;
 
+@Entity
 public class MovieModel implements Parcelable {
 
     private String name;
@@ -15,13 +18,18 @@ public class MovieModel implements Parcelable {
     private String trailerUrl;
     private String releaseDate;
 
+    @PrimaryKey
     private int movieId;
     private String imageResourceUri;
     private String backImageResourceUri;
 
+    private Double popularity;
+
+
     public MovieModel(int movieId,String name, String overview,
                       String releaseDate,
-                      String imageResourceUri, String backImageResourceUri, String trailerUrl) {
+                      String imageResourceUri, String backImageResourceUri,
+                      String trailerUrl,Double aPopularity) {
         this.name = name;
         this.overview = overview;
         this.trailerUrl = trailerUrl;
@@ -29,6 +37,7 @@ public class MovieModel implements Parcelable {
         this.movieId = movieId;
         this.imageResourceUri = imageResourceUri;
         this.backImageResourceUri = backImageResourceUri;
+        this.popularity = aPopularity;
     }
 
     protected MovieModel(Parcel in) {
@@ -120,6 +129,22 @@ public class MovieModel implements Parcelable {
 
     public void setBackImageResourceUri(String backImageResourceUri) {
         this.backImageResourceUri = backImageResourceUri;
+    }
+
+    public int getMovieId() {
+        return movieId;
+    }
+
+    public void setMovieId(int movieId) {
+        this.movieId = movieId;
+    }
+
+    public Double getPopularity() {
+        return popularity;
+    }
+
+    public void setPopularity(Double popularity) {
+        this.popularity = popularity;
     }
 
     @Override

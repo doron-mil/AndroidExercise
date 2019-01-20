@@ -14,4 +14,8 @@
         android:id="@+id/action_open_background_services"
         android:title="Open Background Service Activity"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/delete_db"
+        android:title="Delete local DB"
+        app:showAsAction="never" />
 </menu>

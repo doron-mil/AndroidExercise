@@ -4,6 +4,7 @@ package com.academy.fundamentals.ex3.model;
 import com.academy.fundamentals.ex3.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MoviesContent {
     public static final ArrayList<MovieModel> MOVIES = new ArrayList<>();
@@ -104,8 +105,9 @@ public class MoviesContent {
         MoviesContent.addMovie(movie9);
     }
 
-    public static void loadMovies(ArrayList<MovieModel> movieModelArrayList) {
+    public static void loadMovies(List<MovieModel> movieModelList) {
         MoviesContent.clear();
-        MOVIES.addAll(movieModelArrayList);
+        MOVIES.addAll(movieModelList);
     }
+
 }
