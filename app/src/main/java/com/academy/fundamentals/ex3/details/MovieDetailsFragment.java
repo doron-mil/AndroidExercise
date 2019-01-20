@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,8 @@ import android.widget.TextView;
 
 import com.academy.fundamentals.ex3.R;
 import com.academy.fundamentals.ex3.model.MovieModel;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
 public class MovieDetailsFragment extends Fragment {
 
@@ -23,10 +26,11 @@ public class MovieDetailsFragment extends Fragment {
     private TextView tvReleaseDate;
     private TextView tvOverview;
     private MovieModel movieModel;
-
+    private Picasso picasso;
 
     public static MovieDetailsFragment newInstance(MovieModel movieModel) {
         MovieDetailsFragment fragment = new MovieDetailsFragment();
+        fragment.picasso = Picasso.get();
         Bundle args = new Bundle();
         args.putParcelable(ARG_MOVIE, movieModel);
         fragment.setArguments(args);
@@ -64,8 +68,38 @@ public class MovieDetailsFragment extends Fragment {
     private void setMovie() {
         if (movieModel == null) return;
 
-        ivBackImage.setImageResource(movieModel.getImageResourceId());
-        ivImage.setImageResource(movieModel.getBackImageResourceId());
+        // ivBackImage.setImageResource(movieModel.getImageResourceId());
+        // ivImage.setImageResource(movieModel.getBackImageResourceId());
+
+        picasso.load(movieModel.getImageResourceUri())
+                .into(ivImage, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        Log.i("doron - onSuccess", "onSuccess");
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+                        ivImage.setImageResource(movieModel.getImageResourceId());
+                        Log.d("doron - onError", "onError() called with: e = [" + e + "]");
+                    }
+                });
+
+        picasso.load(movieModel.getBackImageResourceUri())
+                .into(ivBackImage, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        Log.i("doron - onSuccess", "onSuccess");
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+                        ivBackImage.setImageResource(movieModel.getImageResourceId());
+                        Log.d("doron - onError", "onError() called with: e = [" + e + "]");
+                    }
+                });
+
+
         tvTitle.setText(movieModel.getName());
 //        tvReleaseDate.setText(movieModel.getReleaseDate());
         tvOverview.setText(movieModel.getOverview());
