@@ -44,5 +44,11 @@
 
     <string name="details_loading_trailer_text">Loading…</string>
 
+    <string name="notification_title">Downloading…</string>
+    <string name="notification_message">%1$d %%</string>
+    <string name="channel_name">Default channel</string>
+    <string name="channel_description">It is a channel for default notifications</string>
+
+
 
 </resources>

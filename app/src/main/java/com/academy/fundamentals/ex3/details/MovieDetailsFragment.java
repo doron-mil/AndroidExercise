@@ -17,12 +17,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.academy.fundamentals.ex3.R;
 import com.academy.fundamentals.ex3.db.AppDatabase;
+import com.academy.fundamentals.ex3.download.DownloadActivity;
 import com.academy.fundamentals.ex3.model.MovieModel;
 import com.academy.fundamentals.ex3.model.MovieModelConverter;
 import com.academy.fundamentals.ex3.model.VideoModel;
@@ -38,7 +40,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class MovieDetailsFragment extends Fragment implements View.OnClickListener{
+public class MovieDetailsFragment extends Fragment implements View.OnClickListener {
 
     private static final String TAG = "MovieDetailsFragment";
     private static final String ARG_MOVIE = "MovieModel-data";
@@ -49,6 +51,7 @@ public class MovieDetailsFragment extends Fragment implements View.OnClickListen
     private TextView tvOverview;
     private MovieModel movieModel;
     private Button btnTrailer;
+    private ImageButton btnDownload;
     private Picasso picasso;
     private boolean isTrue;
 
@@ -87,6 +90,9 @@ public class MovieDetailsFragment extends Fragment implements View.OnClickListen
 
         this.btnTrailer = view.findViewById(R.id.detailsPlayTrailer);
         this.btnTrailer.setOnClickListener(this);
+
+        this.btnDownload = view.findViewById(R.id.imageButton_download);
+        this.btnDownload.setOnClickListener(this);
 
 
         this.setMovie();
@@ -133,10 +139,31 @@ public class MovieDetailsFragment extends Fragment implements View.OnClickListen
     }
 
     @Override
-    public void onClick(View v) {
-        Log.d("doron - trailer", "pressed");
+    public void onClick(View view) {
+        Log.d("doron - clickButton", "pressed");
 
         if (movieModel == null) return;
+
+        switch (view.getId()) {
+            case R.id.detailsPlayTrailer:
+                this.viewTrailer();
+                break;
+
+            case R.id.imageButton_download:
+                this.downloadImage();
+                break;
+        }
+
+    }
+
+    private void downloadImage() {
+        Log.d("doron - download", "download");
+        Context context = getContext();
+        if (movieModel == null || context == null) return;
+        DownloadActivity.startActivity(context, this.movieModel);
+    }
+
+    private void viewTrailer() {
         FragmentActivity activity = getActivity();
         if (activity == null) {
             return;
@@ -154,7 +181,7 @@ public class MovieDetailsFragment extends Fragment implements View.OnClickListen
         }
 
         this.setButtonLoadingStatus();
-        isTrue = !isTrue ;
+        isTrue = !isTrue;
         // if (isTrue) {
         //     this.setButtonLoadingStatus();
         // }else {
@@ -190,6 +217,7 @@ public class MovieDetailsFragment extends Fragment implements View.OnClickListen
                         resetButtonStatus();
                     }
                 });
+
     }
 
     private void playTrailer(String key) {

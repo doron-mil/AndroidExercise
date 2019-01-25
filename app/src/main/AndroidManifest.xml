@@ -3,6 +3,7 @@
     package="com.academy.fundamentals.ex3">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -21,14 +22,18 @@
         <activity android:name=".details.MovieDetails" />
         <activity android:name=".threads.AsyncTaskActivity" />
         <activity android:name=".threads.ThreadsActivity" />
-        <activity android:name=".BackgroundServices.BGServiceActivity"></activity>
+        <activity android:name=".BackgroundServices.BGServiceActivity" />
+        <activity android:name=".download.DownloadActivity"></activity>
 
         <service
             android:name=".BackgroundServices.HardJobService"
             android:exported="false" />
         <service
             android:name=".BackgroundServices.HardJobIntentService"
-            android:exported="false"></service>
+            android:exported="false" />
+
+        <service android:name=".download.DownloadService"/>
+
     </application>
 
 </manifest>

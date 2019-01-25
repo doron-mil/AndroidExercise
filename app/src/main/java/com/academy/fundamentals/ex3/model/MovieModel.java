@@ -40,14 +40,6 @@ public class MovieModel implements Parcelable {
         this.popularity = aPopularity;
     }
 
-    protected MovieModel(Parcel in) {
-        name = in.readString();
-        imageResourceId = in.readInt();
-        backImageResourceId = in.readInt();
-        overview = in.readString();
-        trailerUrl = in.readString();
-        releaseDate = in.readString();
-    }
 
     public static final Creator<MovieModel> CREATOR = new Creator<MovieModel>() {
         @Override
@@ -160,5 +152,22 @@ public class MovieModel implements Parcelable {
         parcel.writeString(this.overview);
         parcel.writeString(this.releaseDate);
         parcel.writeString(this.trailerUrl);
+        parcel.writeString(this.imageResourceUri);
+        parcel.writeString(this.backImageResourceUri);
+        parcel.writeDouble(this.popularity);
     }
+
+    protected MovieModel(Parcel in) {
+        name = in.readString();
+        imageResourceId = in.readInt();
+        backImageResourceId = in.readInt();
+        overview = in.readString();
+        releaseDate = in.readString();
+        trailerUrl = in.readString();
+        imageResourceUri = in.readString();
+        backImageResourceUri = in.readString();
+        popularity = in.readDouble();
+
+    }
+
 }
